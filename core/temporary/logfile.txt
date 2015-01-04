@@ -1,0 +1,712 @@
+[04.01.2015 16:40:26] -- begin install ----------------------------------
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_users` (`userID` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` varchar(160) NOT NULL,`alias` varchar(160),`trash` tinyint(1) NOT NULL default '0',`active` tinyint(1) NOT NULL default '1',`mail` varchar(160) NOT NULL DEFAULT '',`password` varchar(254) NULL DEFAULT NULL,`passwordResetHash` char(32) NULL DEFAULT NULL,`ban` int(1) NOT NULL default '0',`banTime` int(10) NOT NULL default '0',`secure` varchar(60) NOT NULL default '0',`lastProject` int(10) NOT NULL default '1',`lastActivity` int(10) NOT NULL default '1',`lastRecord` int(10) NOT NULL default '0',`timeframeBegin` varchar(60) NOT NULL default '0',`timeframeEnd` varchar(60) NOT NULL default '0',`apikey` varchar(30) NULL DEFAULT NULL,`globalRoleID` int(10) NOT NULL,UNIQUE KEY `name` (`name`),UNIQUE KEY `apikey` (`apikey`));] => s:42:"Table 'kimai_users' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_preferences` (`userID` int(10) NOT NULL,`option` varchar(255) NOT NULL,`value` varchar(255) NOT NULL,PRIMARY KEY (`userID`,`option`));] => s:48:"Table 'kimai_preferences' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_activities` (`activityID` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` varchar(255) NOT NULL,`comment` TEXT NOT NULL,`visible` TINYINT(1) NOT NULL DEFAULT '1',`filter` TINYINT(1) NOT NULL DEFAULT '0',`trash` TINYINT(1) NOT NULL DEFAULT '0') AUTO_INCREMENT=1;] => s:47:"Table 'kimai_activities' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_groups` (`groupID` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` varchar(160) NOT NULL,`trash` TINYINT(1) NOT NULL DEFAULT '0') AUTO_INCREMENT=1;] => s:43:"Table 'kimai_groups' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_groups_users` (`groupID` int(10) NOT NULL,`userID` int(10) NOT NULL,`membershipRoleID` int(10) NOT NULL,PRIMARY KEY (`groupID`,`userID`)) AUTO_INCREMENT=1;] => s:49:"Table 'kimai_groups_users' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_groups_customers` (`groupID` INT NOT NULL,`customerID` INT NOT NULL,UNIQUE (`groupID` ,`customerID`));] => s:53:"Table 'kimai_groups_customers' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_groups_projects` (`groupID` INT NOT NULL,`projectID` INT NOT NULL,UNIQUE (`groupID` ,`projectID`));] => s:52:"Table 'kimai_groups_projects' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_groups_activities` (`groupID` INT NOT NULL,`activityID` INT NOT NULL,UNIQUE (`groupID` ,`activityID`)) ;] => s:54:"Table 'kimai_groups_activities' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_projects_activities` (`projectID` INT NOT NULL,`activityID` INT NOT NULL,`budget` DECIMAL( 10, 2 ) NULL DEFAULT '0.00',`effort` DECIMAL( 10, 2 ) NULL ,`approved` DECIMAL( 10, 2 ) NULL,UNIQUE (`projectID` ,`activityID`)) ;] => s:56:"Table 'kimai_projects_activities' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_customers` (`customerID` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` varchar(255) NOT NULL,`password` varchar(255),`passwordResetHash` char(32) NULL DEFAULT NULL,`secure` varchar(60) NOT NULL default '0',`comment` TEXT NOT NULL,`visible` TINYINT(1) NOT NULL DEFAULT '1',`filter` TINYINT(1) NOT NULL DEFAULT '0',`company` varchar(255) NOT NULL,`vat` varchar(255) NOT NULL,`contact` varchar(255) NOT NULL,`street` varchar(255) NOT NULL,`zipcode` varchar(255) NOT NULL,`city` varchar(255) NOT NULL,`phone` varchar(255) NOT NULL,`fax` varchar(255) NOT NULL,`mobile` varchar(255) NOT NULL,`mail` varchar(255) NOT NULL,`homepage` varchar(255) NOT NULL,`timezone` varchar(255) NOT NULL,`trash` TINYINT(1) NOT NULL DEFAULT '0') AUTO_INCREMENT=1;] => s:46:"Table 'kimai_customers' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_projects` (`projectID` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,`customerID` int(3) NOT NULL,`name` varchar(255) NOT NULL,`comment` TEXT NOT NULL,`visible` TINYINT(1) NOT NULL DEFAULT '1',`filter` TINYINT(1) NOT NULL DEFAULT '0',`trash` TINYINT(1) NOT NULL DEFAULT '0',`budget` decimal(10,2) NOT NULL DEFAULT '0.00',`effort` DECIMAL( 10, 2 ) NULL,`approved` DECIMAL( 10, 2 ) NULL,`internal` TINYINT( 1 ) NOT NULL DEFAULT 0,INDEX ( `customerID` )) AUTO_INCREMENT=1;] => s:45:"Table 'kimai_projects' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_timeSheet` (`timeEntryID` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,`start` int(10) NOT NULL default '0',`end` int(10) NOT NULL default '0',`duration` int(6) NOT NULL default '0',`userID` int(10) NOT NULL,`projectID` int(10) NOT NULL,`activityID` int(10) NOT NULL,`description` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,`comment` TEXT NULL DEFAULT NULL,`commentType` TINYINT(1) NOT NULL DEFAULT '0',`cleared` TINYINT(1) NOT NULL DEFAULT '0',`location` VARCHAR(50),`trackingNumber` varchar(30),`rate` DECIMAL( 10, 2 ) NOT NULL DEFAULT '0',`fixedRate` DECIMAL( 10, 2 ) NOT NULL DEFAULT '0',`budget` DECIMAL( 10, 2 ) NULL,`approved` DECIMAL( 10, 2 ) NULL,`statusID` SMALLINT NOT NULL,`billable` TINYINT NULL,INDEX ( `userID` ),INDEX ( `projectID` ),INDEX ( `activityID` )) AUTO_INCREMENT=1;] => s:46:"Table 'kimai_timeSheet' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_configuration` (`option` varchar(255) NOT NULL,`value` varchar(255) NOT NULL,PRIMARY KEY(`option`));] => s:50:"Table 'kimai_configuration' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_rates` (`userID` int(10) DEFAULT NULL,`projectID` int(10) DEFAULT NULL,`activityID` int(10) DEFAULT NULL,`rate` decimal(10,2) NOT NULL,UNIQUE KEY(`userID`, `projectID`, `activityID`));] => s:42:"Table 'kimai_rates' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_fixedRates` (`projectID` int(10) DEFAULT NULL,`activityID` int(10) DEFAULT NULL,`rate` decimal(10,2) NOT NULL,UNIQUE KEY(`projectID`, `activityID`));] => s:47:"Table 'kimai_fixedRates' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_expenses` (`expenseID` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,`timestamp` int(10) NOT NULL DEFAULT '0',`userID` int(10) NOT NULL,`projectID` int(10) NOT NULL,`designation` text NOT NULL,`comment` text NOT NULL,`commentType` tinyint(1) NOT NULL DEFAULT '0',`refundable` tinyint(1) unsigned NOT NULL default '0' COMMENT 'expense refundable to employee (0 = no, 1 = yes)',`cleared` tinyint(1) NOT NULL DEFAULT '0',`multiplier` decimal(10,2) NOT NULL DEFAULT '1.00',`value` decimal(10,2) NOT NULL DEFAULT '0.00',INDEX ( `userID` ),INDEX ( `projectID` )) AUTO_INCREMENT=1;] => s:45:"Table 'kimai_expenses' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_statuses` (`statusID` TINYINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`status` VARCHAR( 200 ) NOT NULL) ENGINE = InnoDB ] => s:45:"Table 'kimai_statuses' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_globalRoles` (`globalRoleID` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR( 255 ) NOT NULL,`deb_ext-access` TINYINT DEFAULT 0, `adminPanel_extension-access` TINYINT DEFAULT 0, `ki_budget-access` TINYINT DEFAULT 0, `ki_expenses-access` TINYINT DEFAULT 0, `ki_export-access` TINYINT DEFAULT 0, `ki_invoice-access` TINYINT DEFAULT 0, `ki_timesheet-access` TINYINT DEFAULT 0, `demo_ext-access` TINYINT DEFAULT 0, `core-customer-otherGroup-add` TINYINT DEFAULT 0, `core-customer-otherGroup-edit` TINYINT DEFAULT 0, `core-customer-otherGroup-delete` TINYINT DEFAULT 0, `core-customer-otherGroup-assign` TINYINT DEFAULT 0, `core-customer-otherGroup-unassign` TINYINT DEFAULT 0, `core-project-otherGroup-add` TINYINT DEFAULT 0, `core-project-otherGroup-edit` TINYINT DEFAULT 0, `core-project-otherGroup-delete` TINYINT DEFAULT 0, `core-project-otherGroup-assign` TINYINT DEFAULT 0, `core-project-otherGroup-unassign` TINYINT DEFAULT 0, `core-activity-otherGroup-add` TINYINT DEFAULT 0, `core-activity-otherGroup-edit` TINYINT DEFAULT 0, `core-activity-otherGroup-delete` TINYINT DEFAULT 0, `core-activity-otherGroup-assign` TINYINT DEFAULT 0, `core-activity-otherGroup-unassign` TINYINT DEFAULT 0, `core-user-otherGroup-add` TINYINT DEFAULT 0, `core-user-otherGroup-edit` TINYINT DEFAULT 0, `core-user-otherGroup-delete` TINYINT DEFAULT 0, `core-user-otherGroup-assign` TINYINT DEFAULT 0, `core-user-otherGroup-unassign` TINYINT DEFAULT 0, `core-status-add` TINYINT DEFAULT 0, `core-status-edit` TINYINT DEFAULT 0, `core-status-delete` TINYINT DEFAULT 0, `core-group-add` TINYINT DEFAULT 0, `core-group-otherGroup-edit` TINYINT DEFAULT 0, `core-group-otherGroup-delete` TINYINT DEFAULT 0, `adminPanel_extension-editAdvanced` TINYINT DEFAULT 0, `ki_timesheets-ownEntry-add` TINYINT DEFAULT 0, `ki_timesheets-otherEntry-otherGroup-add` TINYINT DEFAULT 0, `ki_timesheets-ownEntry-edit` TINYINT DEFAULT 0, `ki_timesheets-otherEntry-otherGroup-edit` TINYINT DEFAULT 0, `ki_timesheets-ownEntry-delete` TINYINT DEFAULT 0, `ki_timesheets-otherEntry-otherGroup-delete` TINYINT DEFAULT 0, `ki_timesheets-showRates` TINYINT DEFAULT 0, `ki_timesheets-editRates` TINYINT DEFAULT 0, `ki_expenses-ownEntry-add` TINYINT DEFAULT 0, `ki_expenses-otherEntry-otherGroup-add` TINYINT DEFAULT 0, `ki_expenses-ownEntry-edit` TINYINT DEFAULT 0, `ki_expenses-otherEntry-otherGroup-edit` TINYINT DEFAULT 0, `ki_expenses-ownEntry-delete` TINYINT DEFAULT 0, `ki_expenses-otherEntry-otherGroup-delete` TINYINT DEFAULT 0) ENGINE = InnoDB ] => s:48:"Table 'kimai_globalRoles' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [CREATE TABLE `kimai_membershipRoles` (`membershipRoleID` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR( 255 ) NOT NULL,`core-customer-add` TINYINT DEFAULT 0, `core-customer-edit` TINYINT DEFAULT 0, `core-customer-delete` TINYINT DEFAULT 0, `core-customer-assign` TINYINT DEFAULT 0, `core-customer-unassign` TINYINT DEFAULT 0, `core-project-add` TINYINT DEFAULT 0, `core-project-edit` TINYINT DEFAULT 0, `core-project-delete` TINYINT DEFAULT 0, `core-project-assign` TINYINT DEFAULT 0, `core-project-unassign` TINYINT DEFAULT 0, `core-activity-add` TINYINT DEFAULT 0, `core-activity-edit` TINYINT DEFAULT 0, `core-activity-delete` TINYINT DEFAULT 0, `core-activity-assign` TINYINT DEFAULT 0, `core-activity-unassign` TINYINT DEFAULT 0, `core-user-add` TINYINT DEFAULT 0, `core-user-edit` TINYINT DEFAULT 0, `core-user-delete` TINYINT DEFAULT 0, `core-user-assign` TINYINT DEFAULT 0, `core-user-unassign` TINYINT DEFAULT 0, `core-user-view` TINYINT DEFAULT 0, `core-group-edit` TINYINT DEFAULT 0, `core-group-delete` TINYINT DEFAULT 0, `ki_timesheets-otherEntry-ownGroup-add` TINYINT DEFAULT 0, `ki_timesheets-otherEntry-ownGroup-edit` TINYINT DEFAULT 0, `ki_timesheets-otherEntry-ownGroup-delete` TINYINT DEFAULT 0, `ki_expenses-otherEntry-ownGroup-add` TINYINT DEFAULT 0, `ki_expenses-otherEntry-ownGroup-edit` TINYINT DEFAULT 0, `ki_expenses-otherEntry-ownGroup-delete` TINYINT DEFAULT 0) ENGINE = InnoDB ] => s:52:"Table 'kimai_membershipRoles' already exists (#1050)";
+[04.01.2015 16:40:26] [ERROR] in [ALTER TABLE `kimai_globalRoles` ADD `core-customer-otherGroup-view` tinyint DEFAULT 0;] => s:61:"Duplicate column name 'core-customer-otherGroup-view' (#1060)";
+[04.01.2015 16:40:27] [ERROR] in [ALTER TABLE `kimai_globalRoles` ADD `core-project-otherGroup-view` tinyint DEFAULT 0;] => s:60:"Duplicate column name 'core-project-otherGroup-view' (#1060)";
+[04.01.2015 16:40:27] [ERROR] in [ALTER TABLE `kimai_globalRoles` ADD `core-activity-otherGroup-view` tinyint DEFAULT 0;] => s:61:"Duplicate column name 'core-activity-otherGroup-view' (#1060)";
+[04.01.2015 16:40:27] [ERROR] in [ALTER TABLE `kimai_globalRoles` ADD `core-group-otherGroup-view` tinyint DEFAULT 0;] => s:58:"Duplicate column name 'core-group-otherGroup-view' (#1060)";
+[04.01.2015 16:40:27] [ERROR] in [ALTER TABLE `kimai_globalRoles` ADD `core-user-otherGroup-view` tinyint DEFAULT 0;] => s:57:"Duplicate column name 'core-user-otherGroup-view' (#1060)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_statuses` (`statusID` ,`status`) VALUES ('1', 'open'), ('2', 'review'), ('3', 'closed');] => s:45:"Duplicate entry '1' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_activities` (`activityID`, `name`, `comment`) VALUES (1, 'testen', '');] => s:45:"Duplicate entry '1' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_customers` (`customerID`, `name`, `comment`, `company`, `vat`, `contact`, `street`, `zipcode`, `city`, `phone`, `fax`, `mobile`, `mail`, `homepage`, `timezone`) VALUES (1, 'Testkunde', '', '', '', '', '', '', '', '', '', '', '','','Europe/Berlin');] => s:45:"Duplicate entry '1' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_projects` (`projectID`, `customerID`, `name`, `comment`) VALUES (1, 1, 'TestProjekt', '');] => s:45:"Duplicate entry '1' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_users` (`userID`,`name`,`mail`,`password`, `globalRoleID` ) VALUES ('355309161','admin','admin@example.com','df66f7a85c69b1586a0aad24b6a82970',1);] => s:46:"Duplicate entry 'admin' for key 'name' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_groups_activities` (`groupID`, `activityID`) VALUES (1, 1);] => s:47:"Duplicate entry '1-1' for key 'groupID' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_groups_customers` (`groupID`, `customerID`) VALUES (1, 1);] => s:47:"Duplicate entry '1-1' for key 'groupID' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_groups_projects` (`groupID`, `projectID`) VALUES (1, 1);] => s:47:"Duplicate entry '1-1' for key 'groupID' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`, `value`) VALUES ('version', '0.9.3');] => s:51:"Duplicate entry 'version' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`, `value`) VALUES ('login', '1');] => s:49:"Duplicate entry 'login' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`, `value`) VALUES ('kimail', 'kimai@example.com');] => s:50:"Duplicate entry 'kimail' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`, `value`) VALUES ('adminmail', 'admin@example.com');] => s:53:"Duplicate entry 'adminmail' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`, `value`) VALUES ('loginTries', '3');] => s:54:"Duplicate entry 'loginTries' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`, `value`) VALUES ('loginBanTime', '900');] => s:56:"Duplicate entry 'loginBanTime' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`, `value`) VALUES ('lastdbbackup', '0');] => s:56:"Duplicate entry 'lastdbbackup' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`, `value`) VALUES ('revision', '1384');] => s:52:"Duplicate entry 'revision' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('currency_name','Euro')] => s:57:"Duplicate entry 'currency_name' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('currency_sign','€')] => s:57:"Duplicate entry 'currency_sign' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('currency_first','0')] => s:58:"Duplicate entry 'currency_first' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('show_sensible_data','0')] => s:62:"Duplicate entry 'show_sensible_data' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('show_update_warn','1')] => s:60:"Duplicate entry 'show_update_warn' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('check_at_startup','0')] => s:60:"Duplicate entry 'check_at_startup' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('show_daySeperatorLines','1')] => s:66:"Duplicate entry 'show_daySeperatorLines' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('show_gabBreaks','0')] => s:58:"Duplicate entry 'show_gabBreaks' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('show_RecordAgain','1')] => s:60:"Duplicate entry 'show_RecordAgain' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('show_TrackingNr','1')] => s:59:"Duplicate entry 'show_TrackingNr' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('date_format_0','%d.%m.%Y')] => s:57:"Duplicate entry 'date_format_0' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('date_format_1','%d.%m.')] => s:57:"Duplicate entry 'date_format_1' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('date_format_2','%d.%m.%Y')] => s:57:"Duplicate entry 'date_format_2' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('language','de')] => s:52:"Duplicate entry 'language' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('roundPrecision','0')] => s:58:"Duplicate entry 'roundPrecision' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('decimalSeparator',',')] => s:60:"Duplicate entry 'decimalSeparator' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('durationWithSeconds','0')] => s:63:"Duplicate entry 'durationWithSeconds' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('exactSums','0')] => s:53:"Duplicate entry 'exactSums' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('defaultVat','0')] => s:54:"Duplicate entry 'defaultVat' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option`,`value`) VALUES('editLimit','-')] => s:53:"Duplicate entry 'editLimit' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option` ,`value`) VALUES ('roundTimesheetEntries', '0' );] => s:65:"Duplicate entry 'roundTimesheetEntries' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option` ,`value`) VALUES ('roundMinutes', '0');] => s:56:"Duplicate entry 'roundMinutes' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option` ,`value`) VALUES ('roundSeconds', '0');] => s:56:"Duplicate entry 'roundSeconds' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option` ,`value`) VALUES ('allowRoundDown', '0');] => s:58:"Duplicate entry 'allowRoundDown' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] [ERROR] in [INSERT INTO `kimai_configuration` (`option` ,`value`) VALUES ('defaultStatusID', '1');] => s:59:"Duplicate entry 'defaultStatusID' for key 'PRIMARY' (#1062)";
+[04.01.2015 16:40:27] -- showing install error --------------------------
+[04.01.2015 16:42:43] -- begin install ----------------------------------
+[04.01.2015 16:42:45] -- installation finished without error ------------
+[04.01.2015 16:42:50] login: admin as user
+[04.01.2015 16:42:50] Global role 1 gave true for deb_ext-access.
+[04.01.2015 16:42:50] Global role 1 gave true for ki_invoice-access.
+[04.01.2015 16:42:50] Global role 1 gave true for ki_export-access.
+[04.01.2015 16:42:50] Global role 1 gave true for ki_timesheet-access.
+[04.01.2015 16:42:50] Global role 1 gave true for ki_expenses-access.
+[04.01.2015 16:42:50] Global role 1 gave true for ki_budget-access.
+[04.01.2015 16:42:50] Global role 1 gave true for adminPanel_extension-access.
+[04.01.2015 16:42:50] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 16:42:50] Global role 1 gave true for core-customer-otherGroup-add.
+[04.01.2015 16:42:50] Global role 1 gave true for core-customer-otherGroup-edit.
+[04.01.2015 16:42:50] Global role 1 gave true for core-project-otherGroup-add.
+[04.01.2015 16:42:50] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 16:42:50] Global role 1 gave true for core-activity-otherGroup-add.
+[04.01.2015 16:42:50] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 16:42:51] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 16:42:51] KSPI axAction (admin): securityWarning
+[04.01.2015 16:43:02] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 16:43:02] Global role 1 gave true for ki_timesheets-otherEntry-otherGroup-add.
+[04.01.2015 16:43:02] Global role 1 gave true for ki_timesheets-ownEntry-add.
+[04.01.2015 16:43:02] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 16:43:02] KSPI axAction (admin): reload_activities_options
+[04.01.2015 16:43:02] KSPI axAction (admin): bestFittingRates
+[04.01.2015 16:43:02] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 16:45:30] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 16:45:30] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 16:45:31] Global role 1 gave true for ki_timesheets-ownEntry-add.
+[04.01.2015 16:45:31] timeEntry_create
+[04.01.2015 16:45:31] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 16:45:31] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 16:46:03] KSPI axAction (admin): prefs
+[04.01.2015 16:46:26] KSPI axAction (admin): editPrefs
+[04.01.2015 16:46:26] Global role 1 gave true for deb_ext-access.
+[04.01.2015 16:46:26] Global role 1 gave true for ki_invoice-access.
+[04.01.2015 16:46:26] Global role 1 gave true for ki_export-access.
+[04.01.2015 16:46:26] Global role 1 gave true for ki_timesheet-access.
+[04.01.2015 16:46:26] Global role 1 gave true for ki_expenses-access.
+[04.01.2015 16:46:26] Global role 1 gave true for ki_budget-access.
+[04.01.2015 16:46:26] Global role 1 gave true for adminPanel_extension-access.
+[04.01.2015 16:46:26] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 16:46:26] Global role 1 gave true for core-customer-otherGroup-add.
+[04.01.2015 16:46:26] Global role 1 gave true for core-customer-otherGroup-edit.
+[04.01.2015 16:46:26] Global role 1 gave true for core-project-otherGroup-add.
+[04.01.2015 16:46:26] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 16:46:26] Global role 1 gave true for core-activity-otherGroup-add.
+[04.01.2015 16:46:26] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 16:46:27] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 16:46:27] KSPI axAction (admin): securityWarning
+[04.01.2015 16:48:51] KSPI axAction (admin): prefs
+[04.01.2015 16:49:12] KSPI axAction (admin): editPrefs
+[04.01.2015 16:49:12] Global role 1 gave true for deb_ext-access.
+[04.01.2015 16:49:12] Global role 1 gave true for ki_invoice-access.
+[04.01.2015 16:49:12] Global role 1 gave true for ki_export-access.
+[04.01.2015 16:49:12] Global role 1 gave true for ki_timesheet-access.
+[04.01.2015 16:49:12] Global role 1 gave true for ki_expenses-access.
+[04.01.2015 16:49:12] Global role 1 gave true for ki_budget-access.
+[04.01.2015 16:49:12] Global role 1 gave true for adminPanel_extension-access.
+[04.01.2015 16:49:12] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 16:49:12] Global role 1 gave true for core-customer-otherGroup-add.
+[04.01.2015 16:49:12] Global role 1 gave true for core-customer-otherGroup-edit.
+[04.01.2015 16:49:12] Global role 1 gave true for core-project-otherGroup-add.
+[04.01.2015 16:49:12] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 16:49:12] Global role 1 gave true for core-activity-otherGroup-add.
+[04.01.2015 16:49:12] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 16:49:13] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 16:49:14] KSPI axAction (admin): securityWarning
+[04.01.2015 16:49:21] KSPI axAction (admin): prefs
+[04.01.2015 16:49:32] KSPI axAction (admin): editPrefs
+[04.01.2015 16:49:32] Global role 1 gave true for deb_ext-access.
+[04.01.2015 16:49:32] Global role 1 gave true for ki_invoice-access.
+[04.01.2015 16:49:32] Global role 1 gave true for ki_export-access.
+[04.01.2015 16:49:32] Global role 1 gave true for ki_timesheet-access.
+[04.01.2015 16:49:32] Global role 1 gave true for ki_expenses-access.
+[04.01.2015 16:49:32] Global role 1 gave true for ki_budget-access.
+[04.01.2015 16:49:32] Global role 1 gave true for adminPanel_extension-access.
+[04.01.2015 16:49:32] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 16:49:32] Global role 1 gave true for core-customer-otherGroup-add.
+[04.01.2015 16:49:32] Global role 1 gave true for core-customer-otherGroup-edit.
+[04.01.2015 16:49:32] Global role 1 gave true for core-project-otherGroup-add.
+[04.01.2015 16:49:32] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 16:49:32] Global role 1 gave true for core-activity-otherGroup-add.
+[04.01.2015 16:49:32] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 16:49:33] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 16:49:33] KSPI axAction (admin): securityWarning
+[04.01.2015 16:49:40] KSPI axAction (admin): add_edit_activity
+[04.01.2015 16:49:53] KSPI axAction (admin): add_edit_CustomerProjectActivity
+[04.01.2015 16:49:54] KSPI axAction (admin): reload_activities
+[04.01.2015 16:49:54] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 16:49:54] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 16:49:54] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 16:49:57] KSPI axAction (admin): add_edit_project
+[04.01.2015 16:50:19] KSPI axAction (admin): add_edit_CustomerProjectActivity
+[04.01.2015 16:50:19] KSPI axAction (admin): reload_projects
+[04.01.2015 16:50:19] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 16:50:19] KSPI axAction (admin): reload_activities
+[04.01.2015 16:50:19] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 16:50:19] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 16:50:19] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 16:50:19] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 16:50:19] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 16:50:30] KSPI axAction (admin): prefs
+[04.01.2015 16:51:12] KSPI axAction (admin): editPrefs
+[04.01.2015 16:51:12] Global role 1 gave true for deb_ext-access.
+[04.01.2015 16:51:12] Global role 1 gave true for ki_invoice-access.
+[04.01.2015 16:51:12] Global role 1 gave true for ki_export-access.
+[04.01.2015 16:51:12] Global role 1 gave true for ki_timesheet-access.
+[04.01.2015 16:51:12] Global role 1 gave true for ki_expenses-access.
+[04.01.2015 16:51:12] Global role 1 gave true for ki_budget-access.
+[04.01.2015 16:51:12] Global role 1 gave true for adminPanel_extension-access.
+[04.01.2015 16:51:12] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 16:51:12] Global role 1 gave true for core-customer-otherGroup-add.
+[04.01.2015 16:51:12] Global role 1 gave true for core-customer-otherGroup-edit.
+[04.01.2015 16:51:12] Global role 1 gave true for core-project-otherGroup-add.
+[04.01.2015 16:51:12] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 16:51:12] Global role 1 gave true for core-activity-otherGroup-add.
+[04.01.2015 16:51:12] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 16:51:13] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 16:51:13] KSPI axAction (admin): securityWarning
+[04.01.2015 16:51:17] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 16:51:17] Global role 1 gave true for ki_timesheets-ownEntry-edit.
+[04.01.2015 16:51:17] Global role 1 gave true for ki_timesheets-otherEntry-otherGroup-edit.
+[04.01.2015 16:51:17] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 16:51:17] KSPI axAction (admin): reload_activities_options
+[04.01.2015 16:51:39] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 16:51:39] Global role 1 gave true for ki_timesheets-ownEntry-edit.
+[04.01.2015 16:51:39] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 16:51:39] Global role 1 gave true for ki_timesheets-ownEntry-edit.
+[04.01.2015 16:51:39] timeEntry_edit: 1
+[04.01.2015 16:51:39] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 16:51:39] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 16:51:49] KSPI axAction (admin): reload
+[04.01.2015 16:51:49] KSPI axAction (admin): reload
+[04.01.2015 16:52:02] Global role 1 gave true for deb_ext-access.
+[04.01.2015 16:52:02] Global role 1 gave true for ki_invoice-access.
+[04.01.2015 16:52:02] Global role 1 gave true for ki_export-access.
+[04.01.2015 16:52:02] Global role 1 gave true for ki_timesheet-access.
+[04.01.2015 16:52:02] Global role 1 gave true for ki_expenses-access.
+[04.01.2015 16:52:02] Global role 1 gave true for ki_budget-access.
+[04.01.2015 16:52:02] Global role 1 gave true for adminPanel_extension-access.
+[04.01.2015 16:52:02] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 16:52:02] Global role 1 gave true for core-customer-otherGroup-add.
+[04.01.2015 16:52:02] Global role 1 gave true for core-customer-otherGroup-edit.
+[04.01.2015 16:52:02] Global role 1 gave true for core-project-otherGroup-add.
+[04.01.2015 16:52:02] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 16:52:02] Global role 1 gave true for core-activity-otherGroup-add.
+[04.01.2015 16:52:02] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 16:52:02] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 16:52:03] KSPI axAction (admin): securityWarning
+[04.01.2015 16:52:07] KSPI axAction (admin): reload
+[04.01.2015 16:52:07] KSPI axAction (admin): reload
+[04.01.2015 16:52:43] Global role 1 gave true for core-customer-otherGroup-view.
+[04.01.2015 16:52:43] KSPI axAction (admin): refreshSubtab
+[04.01.2015 16:52:43] KSPI axAction (admin): refreshSubtab
+[04.01.2015 16:52:43] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 16:52:43] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 16:52:43] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 16:52:43] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 16:52:43] Global role 1 gave true for core-project-otherGroup-view.
+[04.01.2015 16:52:43] Global role 1 gave true for core-customer-otherGroup-view.
+[04.01.2015 16:52:43] Global role 1 gave true for core-project-otherGroup-view.
+[04.01.2015 16:52:43] Global role 1 gave true for core-activity-otherGroup-view.
+[04.01.2015 16:52:43] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 16:52:43] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 16:52:43] KSPI axAction (admin): refreshSubtab
+[04.01.2015 16:52:43] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 16:52:43] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 16:52:43] Global role 1 gave true for core-activity-otherGroup-view.
+[04.01.2015 16:52:43] Global role 1 gave true for adminPanel_extension-editAdvanced.
+[04.01.2015 17:02:44] Round 2.4166666666667 to 2.4 with 1
+[04.01.2015 17:04:36] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 17:04:36] Global role 1 gave true for ki_timesheets-otherEntry-otherGroup-add.
+[04.01.2015 17:04:36] Global role 1 gave true for ki_timesheets-ownEntry-add.
+[04.01.2015 17:04:36] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 17:04:36] KSPI axAction (admin): reload_activities_options
+[04.01.2015 17:04:36] KSPI axAction (admin): bestFittingRates
+[04.01.2015 17:04:36] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:04:41] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:04:48] KSPI axAction (admin): add_edit_CustomerProjectActivity
+[04.01.2015 17:04:49] KSPI axAction (admin): reload_projects
+[04.01.2015 17:04:49] KSPI axAction (admin): reload_activities
+[04.01.2015 17:04:49] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 17:04:49] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:04:49] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:04:49] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:04:49] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:04:49] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:04:52] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:04:58] KSPI axAction (admin): add_edit_CustomerProjectActivity
+[04.01.2015 17:04:58] KSPI axAction (admin): reload_projects
+[04.01.2015 17:04:58] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:04:58] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 17:04:58] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:04:58] KSPI axAction (admin): reload_activities
+[04.01.2015 17:04:58] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:04:58] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:04:58] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:05:04] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:05:12] KSPI axAction (admin): add_edit_CustomerProjectActivity
+[04.01.2015 17:05:12] KSPI axAction (admin): reload_projects
+[04.01.2015 17:05:12] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:05:12] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:05:12] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 17:05:12] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:05:12] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:05:13] KSPI axAction (admin): reload_activities
+[04.01.2015 17:05:13] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:05:16] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 17:05:16] Global role 1 gave true for ki_timesheets-otherEntry-otherGroup-add.
+[04.01.2015 17:05:16] Global role 1 gave true for ki_timesheets-ownEntry-add.
+[04.01.2015 17:05:16] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 17:05:16] KSPI axAction (admin): reload_activities_options
+[04.01.2015 17:05:16] KSPI axAction (admin): bestFittingRates
+[04.01.2015 17:05:16] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:05:18] KSPI axAction (admin): reload_activities_options
+[04.01.2015 17:05:18] KSPI axAction (admin): bestFittingRates
+[04.01.2015 17:05:18] KSPI axAction (admin): budgets
+[04.01.2015 17:05:18] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:05:18] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:05:24] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:05:29] KSPI axAction (admin): add_edit_CustomerProjectActivity
+[04.01.2015 17:05:29] KSPI axAction (admin): reload_projects
+[04.01.2015 17:05:29] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:05:29] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 17:05:29] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:05:30] KSPI axAction (admin): reload_activities
+[04.01.2015 17:05:30] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:05:30] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:05:30] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:05:31] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 17:05:31] Global role 1 gave true for ki_timesheets-otherEntry-otherGroup-add.
+[04.01.2015 17:05:31] Global role 1 gave true for ki_timesheets-ownEntry-add.
+[04.01.2015 17:05:31] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 17:05:32] KSPI axAction (admin): reload_activities_options
+[04.01.2015 17:05:32] KSPI axAction (admin): bestFittingRates
+[04.01.2015 17:05:32] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:05:34] KSPI axAction (admin): reload_activities_options
+[04.01.2015 17:05:35] KSPI axAction (admin): budgets
+[04.01.2015 17:05:35] KSPI axAction (admin): bestFittingRates
+[04.01.2015 17:05:35] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:05:35] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:05:49] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 17:05:49] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 17:05:49] Global role 1 gave true for ki_timesheets-ownEntry-add.
+[04.01.2015 17:05:49] timeEntry_create
+[04.01.2015 17:05:49] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:05:49] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:05:59] Global role 1 gave true for deb_ext-access.
+[04.01.2015 17:05:59] Global role 1 gave true for ki_invoice-access.
+[04.01.2015 17:05:59] Global role 1 gave true for ki_export-access.
+[04.01.2015 17:05:59] Global role 1 gave true for ki_timesheet-access.
+[04.01.2015 17:05:59] Global role 1 gave true for ki_expenses-access.
+[04.01.2015 17:05:59] Global role 1 gave true for ki_budget-access.
+[04.01.2015 17:05:59] Global role 1 gave true for adminPanel_extension-access.
+[04.01.2015 17:05:59] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:05:59] Global role 1 gave true for core-customer-otherGroup-add.
+[04.01.2015 17:05:59] Global role 1 gave true for core-customer-otherGroup-edit.
+[04.01.2015 17:05:59] Global role 1 gave true for core-project-otherGroup-add.
+[04.01.2015 17:05:59] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 17:05:59] Global role 1 gave true for core-activity-otherGroup-add.
+[04.01.2015 17:05:59] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:06:00] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:06:00] KSPI axAction (admin): securityWarning
+[04.01.2015 17:06:20] Round 16.425277777778 to 16.4 with 1
+[04.01.2015 17:06:31] Round 14.008611111111 to 14 with 1
+[04.01.2015 17:06:42] Round 14.008611111111 to 14 with 1
+[04.01.2015 17:06:55] KSPI axAction (admin): add_edit_activity
+[04.01.2015 17:07:12] KSPI axAction (admin): add_edit_CustomerProjectActivity
+[04.01.2015 17:07:12] KSPI axAction (admin): reload_activities
+[04.01.2015 17:07:12] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:07:12] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:07:12] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:07:16] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 17:07:16] Global role 1 gave true for ki_timesheets-ownEntry-edit.
+[04.01.2015 17:07:16] Global role 1 gave true for ki_timesheets-otherEntry-otherGroup-edit.
+[04.01.2015 17:07:16] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 17:07:17] KSPI axAction (admin): reload_activities_options
+[04.01.2015 17:07:19] KSPI axAction (admin): bestFittingRates
+[04.01.2015 17:07:19] KSPI axAction (admin): budgets
+[04.01.2015 17:07:19] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:07:19] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:07:20] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 17:07:20] Global role 1 gave true for ki_timesheets-ownEntry-edit.
+[04.01.2015 17:07:20] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 17:07:20] Global role 1 gave true for ki_timesheets-ownEntry-edit.
+[04.01.2015 17:07:20] timeEntry_edit: 2
+[04.01.2015 17:07:20] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:07:20] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:07:24] KSPI axAction (admin): reload
+[04.01.2015 17:07:24] KSPI axAction (admin): reload
+[04.01.2015 17:11:30] KSPI axAction (admin): reload
+[04.01.2015 17:11:51] KSPI axAction (admin): add_edit_customer
+[04.01.2015 17:12:07] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:13:04] KSPI axAction (admin): add_edit_CustomerProjectActivity
+[04.01.2015 17:13:04] KSPI axAction (admin): reload_projects
+[04.01.2015 17:13:04] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 17:13:04] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:13:04] KSPI axAction (admin): reload_activities
+[04.01.2015 17:13:04] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:13:04] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:13:04] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:13:04] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:13:10] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:13:20] KSPI axAction (admin): add_edit_CustomerProjectActivity
+[04.01.2015 17:13:20] KSPI axAction (admin): reload_projects
+[04.01.2015 17:13:20] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:13:20] KSPI axAction (admin): reload_activities
+[04.01.2015 17:13:20] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 17:13:20] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:13:20] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:13:20] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:13:20] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:13:44] Global role 1 gave true for deb_ext-access.
+[04.01.2015 17:13:44] Global role 1 gave true for ki_invoice-access.
+[04.01.2015 17:13:44] Global role 1 gave true for ki_export-access.
+[04.01.2015 17:13:44] Global role 1 gave true for ki_timesheet-access.
+[04.01.2015 17:13:44] Global role 1 gave true for ki_expenses-access.
+[04.01.2015 17:13:44] Global role 1 gave true for ki_budget-access.
+[04.01.2015 17:13:44] Global role 1 gave true for adminPanel_extension-access.
+[04.01.2015 17:13:44] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:13:44] Global role 1 gave true for core-customer-otherGroup-add.
+[04.01.2015 17:13:44] Global role 1 gave true for core-customer-otherGroup-edit.
+[04.01.2015 17:13:44] Global role 1 gave true for core-project-otherGroup-add.
+[04.01.2015 17:13:44] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 17:13:44] Global role 1 gave true for core-activity-otherGroup-add.
+[04.01.2015 17:13:44] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:13:45] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:13:45] KSPI axAction (admin): securityWarning
+[04.01.2015 17:13:49] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:13:56] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:14:03] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:16:20] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 17:16:20] Global role 1 gave true for ki_timesheets-ownEntry-edit.
+[04.01.2015 17:16:20] Global role 1 gave true for ki_timesheets-otherEntry-otherGroup-edit.
+[04.01.2015 17:16:20] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 17:16:21] KSPI axAction (admin): reload_activities_options
+[04.01.2015 17:16:30] KSPI axAction (admin): quickdelete
+[04.01.2015 17:16:30] Global role 1 gave true for ki_timesheets-ownEntry-delete.
+[04.01.2015 17:16:31] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:16:31] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:16:33] KSPI axAction (admin): quickdelete
+[04.01.2015 17:16:33] Global role 1 gave true for ki_timesheets-ownEntry-delete.
+[04.01.2015 17:16:33] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:16:33] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:16:35] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 17:16:35] Global role 1 gave true for ki_timesheets-otherEntry-otherGroup-add.
+[04.01.2015 17:16:35] Global role 1 gave true for ki_timesheets-ownEntry-add.
+[04.01.2015 17:16:35] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 17:16:35] KSPI axAction (admin): reload_activities_options
+[04.01.2015 17:16:35] KSPI axAction (admin): bestFittingRates
+[04.01.2015 17:16:35] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:16:49] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 17:16:49] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 17:16:49] Global role 1 gave true for ki_timesheets-ownEntry-add.
+[04.01.2015 17:16:49] timeEntry_create
+[04.01.2015 17:16:49] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:16:49] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:16:51] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 17:16:51] Global role 1 gave true for ki_timesheets-otherEntry-otherGroup-add.
+[04.01.2015 17:16:51] Global role 1 gave true for ki_timesheets-ownEntry-add.
+[04.01.2015 17:16:51] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 17:16:51] KSPI axAction (admin): reload_activities_options
+[04.01.2015 17:16:51] KSPI axAction (admin): bestFittingRates
+[04.01.2015 17:16:51] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:16:52] KSPI axAction (admin): reload_activities_options
+[04.01.2015 17:16:52] KSPI axAction (admin): bestFittingRates
+[04.01.2015 17:16:52] KSPI axAction (admin): budgets
+[04.01.2015 17:16:52] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:16:52] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:16:54] KSPI axAction (admin): bestFittingRates
+[04.01.2015 17:16:54] KSPI axAction (admin): budgets
+[04.01.2015 17:16:54] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:16:54] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:17:00] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 17:17:00] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 17:17:00] Global role 1 gave true for ki_timesheets-ownEntry-add.
+[04.01.2015 17:17:00] timeEntry_create
+[04.01.2015 17:17:00] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:17:00] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:17:09] Round 2.6930555555556 to 2.7 with 1
+[04.01.2015 17:17:09] Round 6.8641666666667 to 6.9 with 1
+[04.01.2015 17:17:31] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:18:53] Global role 1 gave true for core-customer-otherGroup-view.
+[04.01.2015 17:18:53] Global role 1 gave true for core-project-otherGroup-view.
+[04.01.2015 17:18:54] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:18:54] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:18:54] Global role 1 gave true for core-activity-otherGroup-view.
+[04.01.2015 17:18:54] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:18:54] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:18:54] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:18:54] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:18:54] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:18:54] Global role 1 gave true for core-customer-otherGroup-view.
+[04.01.2015 17:18:54] Global role 1 gave true for core-project-otherGroup-view.
+[04.01.2015 17:18:54] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:18:54] Global role 1 gave true for adminPanel_extension-editAdvanced.
+[04.01.2015 17:18:54] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:18:54] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:18:54] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:18:54] Global role 1 gave true for core-activity-otherGroup-view.
+[04.01.2015 17:19:02] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:24:50] KSPI axAction (admin): saveBuzzerPreselection
+[04.01.2015 17:24:53] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:24:53] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:24:53] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:24:53] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:24:53] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:24:53] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:24:53] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:24:53] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:24:53] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:24:53] Global role 1 gave true for core-activity-otherGroup-view.
+[04.01.2015 17:24:53] Global role 1 gave true for core-project-otherGroup-view.
+[04.01.2015 17:24:53] Global role 1 gave true for core-customer-otherGroup-view.
+[04.01.2015 17:24:57] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:24:57] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:24:57] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:24:57] Global role 1 gave true for core-activity-otherGroup-view.
+[04.01.2015 17:25:00] KSPI axAction (admin): add_edit_activity
+[04.01.2015 17:25:07] KSPI axAction (admin): add_edit_activity
+[04.01.2015 17:32:20] KSPI axAction (admin): reload
+[04.01.2015 17:32:20] E_NOTICE Undefined offset: 3 @/home/mcnesium/public_html/dev/kimai/core/extensions/ki_budget/processor.php line 53
+[04.01.2015 17:32:41] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:39:38] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:39:52] KSPI axAction (admin): add_edit_CustomerProjectActivity
+[04.01.2015 17:39:52] KSPI axAction (admin): reload_projects
+[04.01.2015 17:39:52] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 17:39:52] KSPI axAction (admin): reload_activities
+[04.01.2015 17:39:52] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:39:55] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:39:55] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:39:55] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:39:55] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:40:01] KSPI axAction (admin): quickdelete
+[04.01.2015 17:40:01] Global role 1 gave true for ki_timesheets-ownEntry-delete.
+[04.01.2015 17:40:01] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:40:01] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:40:04] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 17:40:04] Global role 1 gave true for ki_timesheets-otherEntry-otherGroup-add.
+[04.01.2015 17:40:04] Global role 1 gave true for ki_timesheets-ownEntry-add.
+[04.01.2015 17:40:04] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 17:40:05] KSPI axAction (admin): reload_activities_options
+[04.01.2015 17:40:05] KSPI axAction (admin): bestFittingRates
+[04.01.2015 17:40:05] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:40:06] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 17:40:06] Global role 1 gave true for ki_timesheets-otherEntry-otherGroup-add.
+[04.01.2015 17:40:06] Global role 1 gave true for ki_timesheets-ownEntry-add.
+[04.01.2015 17:40:06] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 17:40:06] KSPI axAction (admin): reload_activities_options
+[04.01.2015 17:40:06] KSPI axAction (admin): bestFittingRates
+[04.01.2015 17:40:06] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:40:07] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 17:40:07] Global role 1 gave true for ki_timesheets-otherEntry-otherGroup-add.
+[04.01.2015 17:40:07] Global role 1 gave true for ki_timesheets-ownEntry-add.
+[04.01.2015 17:40:07] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 17:40:07] KSPI axAction (admin): reload_activities_options
+[04.01.2015 17:40:07] KSPI axAction (admin): bestFittingRates
+[04.01.2015 17:40:07] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:40:24] KSPI axAction (admin): reload_activities_options
+[04.01.2015 17:40:24] KSPI axAction (admin): budgets
+[04.01.2015 17:40:24] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:40:24] KSPI axAction (admin): bestFittingRates
+[04.01.2015 17:40:24] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:40:30] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 17:40:30] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 17:40:30] Global role 1 gave true for ki_timesheets-ownEntry-add.
+[04.01.2015 17:40:30] timeEntry_create
+[04.01.2015 17:40:30] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:40:30] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:40:35] KSPI axAction (admin): reload
+[04.01.2015 17:40:35] KSPI axAction (admin): reload
+[04.01.2015 17:40:47] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:40:52] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:41:03] KSPI axAction (admin): quickdelete
+[04.01.2015 17:41:03] Global role 1 gave true for ki_timesheets-ownEntry-delete.
+[04.01.2015 17:41:03] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:41:03] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:41:08] KSPI axAction (admin): saveBuzzerPreselection
+[04.01.2015 17:41:08] KSPI axAction (admin): reload_activities
+[04.01.2015 17:41:08] KSPI axAction (admin): reload_activities
+[04.01.2015 17:41:08] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:41:08] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:41:09] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:41:21] KSPI axAction (admin): saveBuzzerPreselection
+[04.01.2015 17:41:23] KSPI axAction (admin): reload_activities
+[04.01.2015 17:41:23] KSPI axAction (admin): saveBuzzerPreselection
+[04.01.2015 17:41:23] KSPI axAction (admin): reload_activities
+[04.01.2015 17:41:23] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:41:23] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:41:24] KSPI axAction (admin): saveBuzzerPreselection
+[04.01.2015 17:41:24] KSPI axAction (admin): reload_activities
+[04.01.2015 17:41:24] KSPI axAction (admin): reload_activities
+[04.01.2015 17:41:24] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:41:24] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:41:26] KSPI axAction (admin): saveBuzzerPreselection
+[04.01.2015 17:41:26] KSPI axAction (admin): reload_activities
+[04.01.2015 17:41:26] KSPI axAction (admin): reload_activities
+[04.01.2015 17:41:26] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:41:26] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:41:27] KSPI axAction (admin): saveBuzzerPreselection
+[04.01.2015 17:41:27] KSPI axAction (admin): reload_activities
+[04.01.2015 17:41:27] KSPI axAction (admin): reload_activities
+[04.01.2015 17:41:27] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:41:27] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:41:29] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:41:32] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:41:32] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:41:32] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:41:32] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:41:32] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:41:32] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:41:32] Global role 1 gave true for core-customer-otherGroup-view.
+[04.01.2015 17:41:32] Global role 1 gave true for core-project-otherGroup-view.
+[04.01.2015 17:41:32] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:41:32] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:41:32] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:41:32] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:41:32] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:41:32] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:41:32] Global role 1 gave true for core-project-otherGroup-view.
+[04.01.2015 17:41:32] Global role 1 gave true for core-activity-otherGroup-view.
+[04.01.2015 17:41:33] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:41:33] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:41:33] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:41:33] Global role 1 gave true for core-activity-otherGroup-view.
+[04.01.2015 17:41:40] KSPI axAction (admin): deleteProject
+[04.01.2015 17:41:40] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:41:40] KSPI axAction (admin): reload_projects
+[04.01.2015 17:41:40] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:41:40] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 17:41:40] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:41:40] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:41:40] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:41:40] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:41:40] Global role 1 gave true for core-project-otherGroup-view.
+[04.01.2015 17:41:40] Global role 1 gave true for core-project-otherGroup-view.
+[04.01.2015 17:41:43] KSPI axAction (admin): add_edit_project
+[04.01.2015 17:42:13] KSPI axAction (admin): add_edit_CustomerProjectActivity
+[04.01.2015 17:42:13] KSPI axAction (admin): reload_projects
+[04.01.2015 17:42:13] KSPI axAction (admin): reload_activities
+[04.01.2015 17:42:13] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 17:42:13] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:42:13] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:42:13] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:42:13] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:42:13] Global role 1 gave true for core-project-otherGroup-view.
+[04.01.2015 17:42:13] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:42:13] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:42:13] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:42:13] Global role 1 gave true for core-activity-otherGroup-view.
+[04.01.2015 17:42:17] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:42:17] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:42:17] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:42:17] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:42:23] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 17:42:23] Global role 1 gave true for ki_timesheets-otherEntry-otherGroup-add.
+[04.01.2015 17:42:23] Global role 1 gave true for ki_timesheets-ownEntry-add.
+[04.01.2015 17:42:23] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 17:42:23] KSPI axAction (admin): reload_activities_options
+[04.01.2015 17:42:23] KSPI axAction (admin): bestFittingRates
+[04.01.2015 17:42:23] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:42:25] KSPI axAction (admin): reload_activities_options
+[04.01.2015 17:42:25] KSPI axAction (admin): bestFittingRates
+[04.01.2015 17:42:25] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:42:27] KSPI axAction (admin): bestFittingRates
+[04.01.2015 17:42:27] KSPI axAction (admin): budgets
+[04.01.2015 17:42:27] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:42:27] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:42:31] KSPI axAction (admin): add_edit_timeSheetEntry
+[04.01.2015 17:42:31] Global role 1 gave true for ki_timesheets-editRates.
+[04.01.2015 17:42:31] Global role 1 gave true for ki_timesheets-ownEntry-add.
+[04.01.2015 17:42:31] timeEntry_create
+[04.01.2015 17:42:31] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 17:42:31] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:42:35] KSPI axAction (admin): reload
+[04.01.2015 17:42:35] KSPI axAction (admin): reload
+[04.01.2015 17:42:35] KSPI axAction (admin): reload
+[04.01.2015 17:43:07] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:43:07] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:43:07] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:43:07] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:43:07] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:43:07] KSPI axAction (admin): refreshSubtab
+[04.01.2015 17:43:07] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:43:07] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:43:07] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:43:07] Global role 1 gave true for core-customer-otherGroup-view.
+[04.01.2015 17:43:07] Global role 1 gave true for core-project-otherGroup-view.
+[04.01.2015 17:43:07] Global role 1 gave true for core-activity-otherGroup-view.
+[04.01.2015 17:43:19] KSPI axAction (admin): sendEditAdvanced
+[04.01.2015 17:43:19] Global role 1 gave true for adminPanel_extension-editAdvanced.
+[04.01.2015 17:43:19] Global role 1 gave true for deb_ext-access.
+[04.01.2015 17:43:19] Global role 1 gave true for ki_invoice-access.
+[04.01.2015 17:43:19] Global role 1 gave true for ki_export-access.
+[04.01.2015 17:43:19] Global role 1 gave true for ki_timesheet-access.
+[04.01.2015 17:43:19] Global role 1 gave true for ki_expenses-access.
+[04.01.2015 17:43:19] Global role 1 gave true for ki_budget-access.
+[04.01.2015 17:43:19] Global role 1 gave true for adminPanel_extension-access.
+[04.01.2015 17:43:19] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:43:19] Global role 1 gave true for core-customer-otherGroup-add.
+[04.01.2015 17:43:19] Global role 1 gave true for core-customer-otherGroup-edit.
+[04.01.2015 17:43:19] Global role 1 gave true for core-project-otherGroup-add.
+[04.01.2015 17:43:19] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 17:43:19] Global role 1 gave true for core-activity-otherGroup-add.
+[04.01.2015 17:43:19] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 17:43:20] Global role 1 gave true for core-customer-otherGroup-view.
+[04.01.2015 17:43:20] Global role 1 gave true for core-project-otherGroup-view.
+[04.01.2015 17:43:20] Global role 1 gave true for core-activity-otherGroup-view.
+[04.01.2015 17:43:20] Global role 1 gave true for core-group-otherGroup-view.
+[04.01.2015 17:43:20] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 17:43:20] Global role 1 gave true for adminPanel_extension-editAdvanced.
+[04.01.2015 17:43:20] KSPI axAction (admin): securityWarning
+[04.01.2015 17:43:25] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 17:43:28] KSPI axAction (admin): add_edit_project
+[04.01.2015 18:35:10] KSPI axAction (admin): saveBuzzerPreselection
+[04.01.2015 18:35:10] KSPI axAction (admin): reload_activities
+[04.01.2015 18:35:10] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 18:35:13] KSPI axAction (admin): saveBuzzerPreselection
+[04.01.2015 18:35:16] KSPI axAction (admin): setTimeframe
+[04.01.2015 18:35:16] KSPI axAction (admin): startRecord
+[04.01.2015 18:35:16] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 18:35:16] KSPI axAction (admin): reload_timespan
+[04.01.2015 18:35:16] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 18:35:16] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 18:35:16] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 18:39:05] KSPI axAction (admin): stopRecord
+[04.01.2015 18:39:05] KSPI axAction (admin): reload_timeSheet
+[04.01.2015 18:39:05] Global role 1 gave true for ki_timesheets-showRates.
+[04.01.2015 19:12:43] Global role 1 gave true for deb_ext-access.
+[04.01.2015 19:12:43] Global role 1 gave true for ki_invoice-access.
+[04.01.2015 19:12:43] Global role 1 gave true for ki_export-access.
+[04.01.2015 19:12:43] Global role 1 gave true for ki_timesheet-access.
+[04.01.2015 19:12:43] Global role 1 gave true for ki_expenses-access.
+[04.01.2015 19:12:43] Global role 1 gave true for ki_budget-access.
+[04.01.2015 19:12:43] Global role 1 gave true for adminPanel_extension-access.
+[04.01.2015 19:12:43] Global role 1 gave true for core-user-otherGroup-view.
+[04.01.2015 19:12:43] Global role 1 gave true for core-customer-otherGroup-add.
+[04.01.2015 19:12:43] Global role 1 gave true for core-customer-otherGroup-edit.
+[04.01.2015 19:12:43] Global role 1 gave true for core-project-otherGroup-add.
+[04.01.2015 19:12:43] Global role 1 gave true for core-project-otherGroup-edit.
+[04.01.2015 19:12:43] Global role 1 gave true for core-activity-otherGroup-add.
+[04.01.2015 19:12:43] Global role 1 gave true for core-activity-otherGroup-edit.
+[04.01.2015 19:12:49] KSPI axAction (admin): securityWarning
+[04.01.2015 19:31:19] Global role 1 gave true for ki_timesheets-showRates.
