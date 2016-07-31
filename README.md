@@ -1,34 +1,54 @@
+[![Build status](https://travis-ci.org/kimai/kimai.svg?branch=master)](https://travis-ci.org/kimai/kimai "Current build status")
+ [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/kimai/kimai.svg)](http://isitmaintained.com/project/kimai/kimai "Average time to resolve an issue")
+ [![Percentage of issues still open](http://isitmaintained.com/badge/open/kimai/kimai.svg)](http://isitmaintained.com/project/kimai/kimai "Percentage of issues still open")
+
 Kimai Time Tracking
 ===================
+
+![Kimai](https://raw.githubusercontent.com/kimai/documentation/master/assets/intro.jpg)
 
 This is the repository of Kimai, a open source time tracking software
 that runs on (almost) every webserver with PHP and MySQL.
 
-You can get more information about this Time Tracking Software:
+You can get more information about this time-tracking software:
 
-* at our [official website](http://www.kimai.org)
-* at our [Kimai forum](http://forum.kimai.org)
+* at our [website](http://www.kimai.org)
+* at our [forum](http://forum.kimai.org)
+* in the [documentation](http://www.kimai.org/documentation/)
 
-We don't have much documentation, but what we have can be found at:
-* [http://www.kimai.org/documentation/](http://www.kimai.org/documentation/)
+## Features
 
-Contributing
-------------
+This is just a short feature list, play around with the [demo installation](http://www.kimai.org/demo/) to see all features:
+ 
+* Multi-user management
+* Every user has its own timesheet
+* Extensive and role-based permission management
+* Manage customers, projects and activities
+* Track project budgets
+* Record expenses
+* Print invoices in multiple formats (ODT, ODS, HTML)
+* Export data in multiple formats (PDF, XLS, CSV, direct print)
+* SOAP and JSON API
+* Native apps ... see our [Apps page](http://www.kimai.org/apps/)
 
-We would love to get input from all developer out there:
+![Screenshot](http://www.kimai.org/assets/kimai08.jpg)
 
-1. Fork Kimai or one of its [other repos][1]
-2. Create a branch (`git checkout -b my_kimai`)
-3. Commit your changes (`git commit -am "Added foobar"`)
-4. Push to the branch (`git push origin my_kimai`)
-5. Create an [Pull Request][2] with a link to your branch
+Getting Started
+---------------
 
-Here are a few rules to follow in order to ease code reviews, and discussions before maintainers accept and merge your work:
+Kimai requires a webserver with PHP and a database (MySQL recommended).
+Accessing the backend through a supported browser.
 
-* You SHOULD write documentation.
-* Please, write commit messages that make sense, and rebase your branch before submitting your Pull Request.
-* One may ask you to squash your commits too. This is used to "clean" your Pull Request before merging it (we don't want commits such as fix tests, fix 2, fix 3, etc.).
-* When creating your Pull Request on GitHub, you MUST write a description which gives the context and/or explains why you are creating it.
+Please see the [INSTALL.md](INSTALL.md) in this folder in order to set up Kimai
+on your webserver.
 
-[1]: https://github.com/kimai
-[2]: https://github.com/kimai/kimai/pulls
+## Contributing
+
+We would love to get input from all developer out there.
+Please read our [contribution guidelines](https://github.com/kimai/kimai/blob/master/.github/CONTRIBUTING.md) to find out how.
+
+## Support / Donate
+
+If you have a feature request that you want to be implemented or a bug that you want to have fixed, you can go to [bountysource](https://www.bountysource.com/teams/kimai/issues) and donate for a specific issue by posting a bounty. The developer who then implements this feature will get the money as soon as the feature gets merged.
+
+Direct Support via PayPal is also possible. Just make a comment in the issue that you want to sponsor and we will get in touch.
